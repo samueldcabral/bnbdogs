@@ -7,10 +7,10 @@
       <div>
         <div class="mt-3">
           <b-card-group deck>
-            <b-card border-variant="dark" header="Dark" align="center">
-              <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
+            <b-card border-variant="dark" header="Users" align="center">
+              <b-card-text>{{ users }}</b-card-text>
             </b-card>
-            <b-card border-variant="dark" header="Dark" align="center">
+            <b-card border-variant="dark" header="Dogs" align="center">
               <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
             </b-card>
           </b-card-group>
@@ -23,27 +23,25 @@
 <script>
 import NavBar from "../components/NavBar";
 import sidebar from "../components/Sidebar";
+import { getUsers } from '../services/services';
+
 
 export default {
   name: "dashboard",
   components: { NavBar, sidebar },
   data () {
     return {
-      resource: this.$resource('localhost:8080/api/user'),
       users: []
     }
   },
-  methods: {
-    initialize () {
-      this.resource.get({}.then((response) => {
-        this.users = response.data
-      }))
-    }
-  },
-  created () {
-    this.initialize()
+  mounted () {
+    getUsers().then(res => {
+      this.users = res
+    });
   }
 };
+
+
 </script>
 <style>
 body {
