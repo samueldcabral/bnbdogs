@@ -10,6 +10,26 @@ export function getUsers() {
   return request;
 }
 
+export function getDogs() {
+  const request = axios
+    .get(API_URL + '/dog')
+    .then(res => res.data);
+  return request;
+}
+
+export function getServices() {
+  const request = axios
+    .get(API_URL + '/service')
+    .then(res => res.data);
+  return request;
+}
+
+export function getBookings() {
+  const request = axios
+    .get(API_URL + '/booking')
+    .then(res => res.data);
+  return request;
+}
 
 
 

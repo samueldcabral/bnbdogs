@@ -11,7 +11,15 @@
               <b-card-text>{{ users }}</b-card-text>
             </b-card>
             <b-card border-variant="dark" header="Dogs" align="center">
-              <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
+              <b-card-text>{{ dogs }}</b-card-text>
+            </b-card>
+          </b-card-group>
+          <b-card-group deck>
+            <b-card border-variant="dark" header="Services" align="center">
+              <b-card-text>{{ services }}</b-card-text>
+            </b-card>
+            <b-card border-variant="dark" header="Bookings" align="center">
+              <b-card-text>{{ bookings }}</b-card-text>
             </b-card>
           </b-card-group>
         </div>
@@ -23,7 +31,7 @@
 <script>
 import NavBar from "../components/NavBar";
 import sidebar from "../components/Sidebar";
-import { getUsers } from '../services/services';
+import { getUsers, getDogs, getServices, getBookings } from '../services/services';
 
 
 export default {
@@ -31,13 +39,29 @@ export default {
   components: { NavBar, sidebar },
   data () {
     return {
-      users: []
+      users: [],
+      dogs: [],
+      services: [],
+      bookings: []
     }
   },
   mounted () {
     getUsers().then(res => {
       this.users = res
     });
+
+    getDogs().then(res => {
+      this.dogs = res
+    });
+
+    getServices().then(res => {
+      this.services = res
+    });
+
+    getBookings().then(res => {
+      this.bookings = res
+    });
+
   }
 };
 
