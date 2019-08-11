@@ -38,7 +38,9 @@ export function addDog(dog) {
 }
 
 export function showDogsUser(userId) {
-  
+  const request = axios
+    .get(`${API_URL}/dogs/${userId}`)
+  return request;
 }
 
 

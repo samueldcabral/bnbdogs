@@ -5,7 +5,7 @@
       <sidebar />
       <div>
         <b-card bg-variant="light">
-        <b-alert v-if="alertMessage" variant="success" show>{{alertMessage}}</b-alert>
+        <b-alert v-if="alertMessage" variant="alertType" show>{{alertMessage}}</b-alert>
           <form @submit.prevent="handleSubmit">
             <b-form-group
               label-cols-lg="2"
@@ -78,6 +78,7 @@ export default {
   data () {
     return {
       alertMessage: '',
+      alertType: '',
       dog: {
         name: '',
         age: '', 
@@ -103,12 +104,18 @@ export default {
         if (res.data.message === "Dog created") {
           console.log(res.data.message)
           this.alertMessage = "Dog created";
+          this.alertType = "success";
           setTimeout(() => {
             this.alertMessage = ""
             this.$router.push("/dashboard")
           }, 1000)
-          
-        }
+        } 
+        // verificar quando da erro
+        this.alertMessage = "Dog not created";
+        this.alertType = "danger";
+        setTimeout(() => {
+          this.alertMessage = ""
+        }, 1000)
         
       });
 
