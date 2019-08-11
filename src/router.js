@@ -35,6 +35,16 @@ export default new Router({
       path: '/show-dogs',
       name: 'showDogs',
       component: () => import(/* webpackChunkName: "dashboard" */ './components/showDogs.vue')
+    },
+    {
+      path: '/show-bookings',
+      name: 'showBookings',
+      component: () => import(/* webpackChunkName: "dashboard" */ './components/showBookings.vue')
+    },
+    {
+      path: '/add-service',
+      name: 'addService',
+      component: () => import(/* webpackChunkName: "dashboard" */ './components/addService.vue')
     }
   ]
 })

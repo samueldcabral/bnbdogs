@@ -5,7 +5,7 @@
     </div>
     <div class="navigation-icons">
       <b-link to="/"><i class="fas fa-home"></i></b-link>
-      <b-link to="/booking"><i class="fas fa-calendar-alt"></i></b-link>
+      <b-link to="/show-bookings"><i class="fas fa-calendar-alt"></i></b-link>
       <b-link to="/show-dogs"><i class="fas fa-paw"></i></b-link>
       <b-link to="/"><i class="fas fa-history"></i></b-link>
       <b-link to="/about"><i class="fas fa-info-circle"></i></b-link>
@@ -13,7 +13,7 @@
     <div class="navigation-links">
       <transition-group name="fade">
         <div v-show="showLink" key="1"><b-link  to="/">Home</b-link></div>
-        <div v-show="showLink" key="2"><b-link v-on:click="$emit('booking')">Booking</b-link></div>
+        <div v-show="showLink" key="2"><b-link to="/show-bookings">Booking</b-link></div>
         <div v-show="showLink" key="3"><b-link to="/show-dogs">Dogs</b-link></div>
         <div v-show="showLink" key="4"><b-link to="/">History</b-link></div>
         <div v-show="showLink" key="5"><b-link to="/about">FAQ</b-link></div>

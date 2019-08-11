@@ -35,7 +35,7 @@
             style="max-width: 20rem;"
             class="mb-2"
           >
-            <b-button href="#" variant="success">Add Service</b-button>
+            <b-button to="add-service" variant="success">Add Service</b-button>
           </b-card>
         </b-card-group>
       </div>

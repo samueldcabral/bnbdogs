@@ -19,7 +19,7 @@
                       <th>Actions</th>
                   </tr>
               </thead>
-              <tr v-for="dog in dogs">
+              <tr v-for="dog in dogs" v-bind:key="dog.id">
                   <td>{{ dog.id }}</td>
                   <td>{{ dog.name }}</td>
                   <td>{{ dog.age }}</td>
@@ -31,9 +31,6 @@
               </tr>
           </table>
       </div>
-
-
-<!--         <b-table class="mt-5" striped hover :items="dogs" :fields="fields"></b-table> -->      
       </div>
     </b-container>
   </div>
@@ -49,42 +46,6 @@ export default {
     components: { NavBar, sidebar },
     data() {
       return {
-        // Note 'isActive' is left out and will not appear in the rendered table
-        fields: [
-          {
-            key: 'name',
-            sortable: true
-          },
-          {
-            key: 'age',
-            label: 'Dog age',
-            sortable: false
-          },
-          {
-            key: 'weight',
-            label: 'Dog weight',
-            sortable: true,
-          },
-          {
-            key: 'breed',
-            label: 'Dog breed',
-            sortable: true,
-          },
-          {
-            key: 'edit',
-            label: 'Edit dog',
-            sortable: true,
-          },
-          {
-            key: 'delete',
-            label: 'delete dog',
-            sortable: true,
-          }
-        ],
-        items: [
-          {edit: "<i class='fas fa-home'></i>"},
-          {delete: "<i class='fas fa-home'></i>"}
-        ],
         dogs: []
       }
     }, 
@@ -92,12 +53,6 @@ export default {
       this.showDogs(2).then(res => {
         this.dogs = res
       });
-
-      /* this.dogs.map(dog => {
-        this.items.push({
-          name: dog.name, age: dog.age, weight: dog.weight, breed: dog.breed
-        })
-      }) */
     }, 
     methods: {
       showDogs(userId) {

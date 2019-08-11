@@ -43,5 +43,18 @@ export function showDogsUser(userId) {
   return request;
 }
 
+export function showBookingsUser(userId) {
+  const request = axios
+    .get(`${API_URL}/bookings/${userId}`)
+  return request;
+}
+
+export function findDogByID(dogId) {
+  const request = axios
+    .get(`${API_URL}/dog/${dogId}`)
+    .then(res => res.data);
+  return request;
+}
+
 
 
