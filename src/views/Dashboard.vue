@@ -4,7 +4,44 @@
     <b-container>
       <sidebar />
       <h1 class="mt-5">Welcome, {{ name }}</h1>
-      <div>
+      
+      <div class="mt-5">
+        <b-card-group deck>
+          <b-card
+            img-src="https://i.imgur.com/5dn8FLp.jpg"
+            img-alt="Image"
+            img-top
+            tag="article"
+            style="max-width: 20rem;"
+            class="mb-2"
+          >
+            <b-button to="add-dog" variant="success">Add a Dog</b-button>
+          </b-card>
+          <b-card
+            img-src="https://i.imgur.com/U1pqelv.jpg"
+            img-alt="Image"
+            img-top
+            tag="article"
+            style="max-width: 20rem;"
+            class="mb-2"
+          >
+            <b-button href="#" variant="success">Book a Room</b-button>
+          </b-card>
+          <b-card
+            img-src="https://i.imgur.com/zmJGcAu.jpg"
+            img-alt="Image"
+            img-top
+            tag="article"
+            style="max-width: 20rem;"
+            class="mb-2"
+          >
+            <b-button href="#" variant="success">Add Service</b-button>
+          </b-card>
+        </b-card-group>
+      </div>
+
+ 
+      <!-- <div>
         <div class="mt-3">
           <b-card-group deck>
             <b-card border-variant="dark" header="Users" align="center">
@@ -23,7 +60,7 @@
             </b-card>
           </b-card-group>
         </div>
-      </div>
+      </div> -->
     </b-container>
   </div>
 </template>
@@ -42,7 +79,8 @@ export default {
       users: [],
       dogs: [],
       services: [],
-      bookings: []
+      bookings: [],
+      dog: null
     }
   },
   mounted () {
@@ -61,8 +99,11 @@ export default {
     getBookings().then(res => {
       this.bookings = res
     });
-
+  },
+  methods: {
+    
   }
+
 };
 
 
@@ -70,5 +111,10 @@ export default {
 <style>
 body {
   background-color: #fff !important;
+}
+
+img {
+  width: 300px;
+  height: 200px;
 }
 </style>

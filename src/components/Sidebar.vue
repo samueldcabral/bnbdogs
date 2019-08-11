@@ -4,25 +4,26 @@
       <i class="fas fa-angle-double-right" @click="showSide"></i>
     </div>
     <div class="navigation-icons">
-      <i class="fas fa-home"></i>
-      <i class="fas fa-calendar-alt"></i>
-      <i class="fas fa-paw"></i>
-      <i class="fas fa-history"></i>
-      <i class="fas fa-info-circle"></i>
+      <b-link to="/"><i class="fas fa-home"></i></b-link>
+      <b-link to="/booking"><i class="fas fa-calendar-alt"></i></b-link>
+      <b-link to="/dogs"><i class="fas fa-paw"></i></b-link>
+      <b-link to="/"><i class="fas fa-history"></i></b-link>
+      <b-link to="/about"><i class="fas fa-info-circle"></i></b-link>
     </div>
     <div class="navigation-links">
       <transition-group name="fade">
-        <div v-show="showLink" key="1">Home</div>
-        <div v-show="showLink" key="2">Booking</div>
-        <div v-show="showLink" key="3">Dogs</div>
-        <div v-show="showLink" key="4">History</div>
-        <div v-show="showLink" key="5">FAQ</div>
+        <div v-show="showLink" key="1"><b-link  to="/">Home</b-link></div>
+        <div v-show="showLink" key="2"><b-link v-on:click="$emit('booking')">Booking</b-link></div>
+        <div v-show="showLink" key="3"><b-link to="/dogs">Dogs</b-link></div>
+        <div v-show="showLink" key="4"><b-link to="/">History</b-link></div>
+        <div v-show="showLink" key="5"><b-link to="/about">FAQ</b-link></div>
       </transition-group>
     </div>
   </div>
 </template>
 <script>
 import { setTimeout } from 'timers';
+
 export default {
   data: () => {
     return {
@@ -50,6 +51,16 @@ export default {
 <style scoped>
 
   @import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
+
+  a {
+    text-decoration: none;
+    color: #212529 !important;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: #fff !important;
+  }
 
   .sidebar {
     position: absolute;
@@ -91,6 +102,10 @@ export default {
 
   .sidebar.show .navigation-icons {
     color: #fff;
+  }
+
+  .sidebar.show .navigation-icons a {
+    color: #fff !important;
   }
 
   .sidebar .navigation-icons {

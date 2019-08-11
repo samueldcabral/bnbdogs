@@ -31,5 +31,11 @@ export function getBookings() {
   return request;
 }
 
+export function addDog(dog) {
+  const request = axios
+    .post(API_URL+ '/dog', dog)
+  return request;
+}
+
 
 
