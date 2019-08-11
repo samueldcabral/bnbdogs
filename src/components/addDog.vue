@@ -5,6 +5,7 @@
       <sidebar />
       <div>
         <b-card bg-variant="light">
+        <b-alert v-if="alertMessage" variant="success" show>{{alertMessage}}</b-alert>
           <form @submit.prevent="handleSubmit">
             <b-form-group
               label-cols-lg="2"
@@ -76,6 +77,7 @@ export default {
   components: { NavBar, sidebar },
   data () {
     return {
+      alertMessage: '',
       dog: {
         name: '',
         age: '', 
@@ -86,7 +88,7 @@ export default {
   },
   mounted () {
     
-    },
+  },
   methods: {
     handleSubmit() {
       let result = {
@@ -95,8 +97,21 @@ export default {
         weight: this.dog.weight,
         breed: this.dog.breed,
         user_id: 2
-      }
-      return addDog(result)
+      };
+
+      addDog(result).then(res => {
+        if (res.data.message === "Dog created") {
+          console.log(res.data.message)
+          this.alertMessage = "Dog created";
+          setTimeout(() => {
+            this.alertMessage = ""
+            this.$router.push("/dashboard")
+          }, 1000)
+          
+        }
+        
+      });
+
     }
   }
 

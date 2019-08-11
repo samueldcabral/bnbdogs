@@ -30,6 +30,11 @@ export default new Router({
       path: '/add-dog',
       name: 'addDog',
       component: () => import(/* webpackChunkName: "dashboard" */ './components/addDog.vue')
+    },
+    {
+      path: '/show-dogs',
+      name: 'showDogs',
+      component: () => import(/* webpackChunkName: "dashboard" */ './components/showDogs.vue')
     }
   ]
 })

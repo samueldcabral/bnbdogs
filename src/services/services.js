@@ -37,5 +37,9 @@ export function addDog(dog) {
   return request;
 }
 
+export function showDogsUser(userId) {
+  
+}
+
 
 
