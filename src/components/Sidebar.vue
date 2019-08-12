@@ -4,7 +4,7 @@
       <i class="fas fa-angle-double-right" @click="showSide"></i>
     </div>
     <div class="navigation-icons">
-      <b-link to="/"><i class="fas fa-home"></i></b-link>
+      <b-link to="/dashboard"><i class="fas fa-home"></i></b-link>
       <b-link to="/show-bookings"><i class="fas fa-calendar-alt"></i></b-link>
       <b-link to="/show-dogs"><i class="fas fa-paw"></i></b-link>
       <b-link to="/"><i class="fas fa-history"></i></b-link>

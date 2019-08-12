@@ -6,12 +6,12 @@
       <div class="mt-5 p-2" >
         <h2 class="m-5">List of bookings</h2>
 
-        <div role="tablist">
+        <div role="tablist" >
           <b-card no-body class="mb-1" v-for="booking in bookings" v-bind:key="booking.id">
             <b-card-header header-tag="header" class="p-1" role="tab">
-              <b-button block href="#" v-b-toggle="'accordion-'+ booking.id" variant="info">Booking date: {{ booking.booking_date }}</b-button>
+              <b-button block href="#" v-b-toggle="'accordion-'+booking.id" variant="info">Booking date: {{ booking.booking_date }}</b-button>
             </b-card-header>
-            <b-collapse :id="'accordion-'+ booking.id" accordion="my-accordion" role="tabpanel">
+            <b-collapse :id="'accordion-'+booking.id" accordion="my-accordion" role="tabpanel">
               <b-card-body>
                 <b-card-text><strong>Check-in_date:</strong> {{ booking['check-in_date'] ? booking['check-in_date'] : "Not confirmed" }}  ---  <strong>Check-out_date:</strong> {{ booking['check-out_date'] ? booking['check-out_date']  : "Not confirmed" }}</b-card-text>
                 <b-card-text><strong>Status:</strong> {{ booking.status }}  ---  <strong>Price:</strong> $ {{ booking.day_price }}</b-card-text>
@@ -22,7 +22,7 @@
                     <li>Price: $ {{service.price}}</li>
                   </ul> -->
                 </b-card-text>
-                <b-card-text><strong>Add Services: </strong> 
+                <b-card-text v-if="booking.status === 'pending'"><strong>Add Services: </strong> 
                   <div>
                     <b-form-group>
                       <div class="form-check form-check-inline" v-for="serv in services" v-bind:key="serv.id">
@@ -30,7 +30,7 @@
                         <label class="form-check-label" :for="'inlineCheckbox'+serv.id">{{serv.description}} - $ {{serv.price}}</label>
                       </div>
                     </b-form-group>
-                      <b-button variant="success" @click="addService(booking.id)">Update booking</b-button>
+                      <b-button variant="success" @click="addService(booking.id)">Add service</b-button>
                   </div>
                 </b-card-text>
 
@@ -87,6 +87,7 @@ export default {
       this.showBookings(2).then(res => {
         this.bookings = res
       });
+      
       this.showAllServices().then(res => {
         this.services = res
       });

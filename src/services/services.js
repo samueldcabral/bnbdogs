@@ -33,8 +33,20 @@ export function getBookings() {
 
 export function addDog(dog) {
   const request = axios
-    .post(API_URL+ '/dog', dog)
+    .post(API_URL+ '/dog', dog);
   return request;
+}
+
+export function deleteDog(dogId) {
+  const request = axios
+    .delete(`${API_URL}/dog/${dogId}`).then(res => res.data);
+  return request;
+}
+
+export function editDog(dog) {
+  const request = axios
+    .put(`${API_URL}/dog/${dog.id}`, dog)
+  return request
 }
 
 export function showDogsUser(userId) {

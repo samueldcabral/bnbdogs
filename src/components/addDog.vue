@@ -61,7 +61,7 @@
 
           </form>
         </b-card>
-</div>
+      </div>
 
 
     </b-container>
@@ -108,7 +108,7 @@ export default {
           this.alertType = "success";
           setTimeout(() => {
             this.alertMessage = ""
-            this.$router.push("/dashboard")
+            this.$router.push("/show-dogs")
           }, 1000)
         } 
         // verificar quando da erro
