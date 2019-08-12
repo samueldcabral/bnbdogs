@@ -56,5 +56,11 @@ export function findDogByID(dogId) {
   return request;
 }
 
+export function addServiceBooking(bookingId, service) {
+  const request = axios
+    .post(`${API_URL}/booking/${bookingId}`, service)
+  return request;
+}
+
 
 

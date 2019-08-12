@@ -3,8 +3,9 @@
     <navBar class="pl-5 ml-5"/>
     <b-container>
       <sidebar />
-      <div>
-        <b-card bg-variant="light">
+      <h1 class="mt-5">Add a dog</h1>
+      <div class="mt-5">
+        <b-card bg-variant="light" class="p-5">
         <b-alert v-if="alertMessage" variant="alertType" show>{{alertMessage}}</b-alert>
           <form @submit.prevent="handleSubmit">
             <b-form-group
