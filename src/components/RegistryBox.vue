@@ -82,8 +82,8 @@ export default {
   data() {
     return {
       user: {
-        email: "",
         name: "",
+        email: "",
         phone: "",
         address: "",
         password: "",

@@ -13,7 +13,7 @@ export function getUsers() {
 export function addUser(user) {
   console.log(user)
   const request = axios
-    .post(API_URL+ '/user', user).then(res=>console.log(res.data))
+    .post(API_URL+ '/user', user)
   return request;
 }
 
