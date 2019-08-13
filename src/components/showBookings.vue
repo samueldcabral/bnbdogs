@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navBar class="pl-5 ml-5"/>
     <b-container class="bg-white">
       <sidebar />
       <div class="mt-5 p-2" >

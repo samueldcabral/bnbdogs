@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navBar class="pl-5 ml-5"/>
     <b-container class="bg-white">
       <sidebar />
       <div class="mt-5 p-2" >
@@ -72,13 +71,12 @@
 </template>
 
 <script>
-import NavBar from "../components/NavBar";
 import sidebar from "../components/Sidebar";
 import { showDogsUser, deleteDog, editDog } from '../services/services';
 
 export default {
     name: "show-dogs",
-    components: { NavBar, sidebar },
+    components: { sidebar },
     data() {
       return {
         dogs: []
@@ -95,7 +93,7 @@ export default {
         return this.dogs
       },
       deleteItem(dogId) {
-        let msg = deleteDog(dogId)
+        deleteDog(dogId)
         this.$router.push("/show-dogs")
 
       },

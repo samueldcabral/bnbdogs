@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navBar />
     <div class="container">
       <home-box />
     </div>
@@ -9,12 +8,11 @@
 
 <script>
 // @ is an alias to /src
-import NavBar from "../components/NavBar";
 import HomeBox from "../components/HomeBox";
 
 export default {
   name: "home",
-  components: { NavBar, HomeBox }
+  components: { HomeBox }
 };
 </script>
 <style>
