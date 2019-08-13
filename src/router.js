@@ -45,6 +45,11 @@ export default new Router({
       path: '/add-service',
       name: 'addService',
       component: () => import(/* webpackChunkName: "dashboard" */ './components/addService.vue')
+    },
+    {
+      path: '/profile',
+      name: 'userPage',
+      component: () => import(/* webpackChunkName: "dashboard" */ './components/userPage.vue')
     }
   ]
 })
