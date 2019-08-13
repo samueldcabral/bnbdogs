@@ -19,7 +19,7 @@ export default {
 </script>
 <style>
 body {
-  background: url("../../static/happy-doggo1.jpg") no-repeat !important;
+  background: url("../../static/happy-doggo2.jpg") no-repeat !important;
   /* background: url("../../static/happydog.jpg") no-repeat !important; */
   background-size: cover !important;
   overflow: hidden;
