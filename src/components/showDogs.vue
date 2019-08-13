@@ -8,7 +8,8 @@
             <h2 class="m-5">List of dogs</h2>
           </div>
           <div class="col-6">
-            <b-button class="m-5" to="add-dog" variant="success">Add a Dog</b-button>
+            <!-- <b-button class="m-5" to="add-dog" variant="success">Add a Dog</b-button> -->
+            <b-button class="m-5" variant="success" @click="$bvModal.show('modal-create'); setVal(dog.id, dog.name, dog.age, dog.weight, dog.breed)">Add a dog</b-button>
           </div>
         </div>
         
@@ -31,16 +32,92 @@
                   <td>{{ dog.age }}</td>
                   <td>{{ dog.weight }} kg</td>
                   <td>{{ dog.breed }}</td>
-                  
+                  <td>
+                    <b-button @click="$bvModal.show('modal-scoped'); setVal(dog.id, dog.name, dog.age, dog.weight, dog.breed)"><i class="fas fa-pencil-alt"></i></b-button>
+                  <!--   <b-button @click="showModal=true; setVal(dog.id, dog.name, dog.age, dog.weight, dog.breed)" class="btn-info m-1"><i class="fas fa-pencil-alt"></i></b-button> -->
+                    <b-button @click="showMsgBoxOne(dog)" class="btn-danger m-1"><i class="fas fa-trash"></i></b-button>
+                  </td>
                   <!-- <td id="show-modal" @click="showModal=true; setVal(dog.id, dog.name, dog.age, dog.weight, dog.breed)" class="btn btn-info m-1" ><i class="fas fa-pencil-alt"></i></td> -->
-                  <td @click.prevent="deleteItem(dog.id)" class="btn btn-danger m-1"><i class="fas fa-trash"></i></td>
+
+                 <!--  <td @click.prevent="deleteItem(dog.id)" class="btn btn-danger m-1"><i class="fas fa-trash"></i></td> -->
               </tr>
           </table>
       </div>
       </div>
     </b-container>
 
- <!--    <modal v-if="showModal" @close="showModal=false">
+
+    <b-modal id="modal-scoped">
+    <template slot="modal-header" slot-scope="{ close }">
+      <b-button size="sm" variant="outline-danger" @click="close()">
+        x
+      </b-button>
+      <h5>Edit dog</h5>
+    </template>
+
+    <template slot="default" >
+      <div slot="body">
+          
+          <input type="hidden" disabled class="form-control" id="e_id" name="id"
+                  required  v-model="dog.id">
+          Name: <input type="text" class="form-control" id="e_name" name="name"
+                  required  v-model="dog.name">
+          Age: <input type="number" class="form-control" id="e_age" name="age"
+          required  v-model="dog.age">
+          Weight: <input type="text" class="form-control" id="e_weight" name="weight"
+          required  v-model="dog.weight">
+          Breed: <input type="text" class="form-control" id="e_breed" name="breed"
+          required  v-model="dog.breed">
+      </div> 
+    </template>
+
+    <template slot="modal-footer" slot-scope="{ ok, cancel }">
+      <b-button variant="secondary" @click="cancel()">
+        Cancel
+      </b-button>
+      <b-button variant="primary" @click="editItem()">
+        OK
+      </b-button>
+    </template>
+  </b-modal>
+
+
+    <b-modal id="modal-create">
+    <template slot="modal-header" slot-scope="{ close }">
+      <b-button size="sm" variant="outline-danger" @click="close()">
+        x
+      </b-button>
+      <h5>Create dog</h5>
+    </template>
+
+    <template slot="default" >
+      <div slot="body">
+          
+          <input type="hidden" disabled class="form-control" id="e_id" name="id"
+                  required  v-model="dog.id">
+          Name: <input type="text" class="form-control" id="e_name" name="name"
+                  required  v-model="dog.name">
+          Age: <input type="number" class="form-control" id="e_age" name="age"
+          required  v-model="dog.age">
+          Weight: <input type="text" class="form-control" id="e_weight" name="weight"
+          required  v-model="dog.weight">
+          Breed: <input type="text" class="form-control" id="e_breed" name="breed"
+          required  v-model="dog.breed">
+      </div> 
+    </template>
+
+    <template slot="modal-footer" slot-scope="{ ok, cancel }">
+      <b-button variant="secondary" @click="cancel()">
+        Cancel
+      </b-button>
+      <b-button variant="primary" @click="handleSubmit()">
+        OK
+      </b-button>
+    </template>
+  </b-modal>
+
+
+    <!-- <modal v-if="showModal" >
       <h3 slot="header">Edit dog</h3>
       <div slot="body">
           
@@ -66,19 +143,28 @@
           Update
         </button>
       </div>
-    </modal> -->
+    </modal>
+ -->
   </div> 
 </template>
 
 <script>
 import sidebar from "../components/Sidebar";
-import { showDogsUser, deleteDog, editDog } from '../services/services';
+import { showDogsUser, deleteDog, editDog, addDog } from '../services/services';
 
 export default {
     name: "show-dogs",
     components: { sidebar },
     data() {
       return {
+        boxOne: '',
+        dog: {
+          id: '',
+          name: '',
+          age: '',
+          weight: '', 
+          breed: '',
+        },
         dogs: []
       }
     }, 
@@ -94,31 +180,78 @@ export default {
       },
       deleteItem(dogId) {
         deleteDog(dogId)
-        this.$router.push("/show-dogs")
 
       },
       setVal(val_id, val_name, val_age, val_weight, val_breed) {
-        this.e_id = val_id;
-        this.e_name = val_name;
-        this.e_age = val_age;
-        this.e_weight = val_weight;
-        this.e_breed = val_breed;
+        this.dog = {
+          id: val_id,
+          name: val_name,
+          age: val_age,
+          weight: val_weight,
+          breed: val_breed
+        }
+      },
+      showMsgBoxOne(dog) {
+        this.boxOne = ''
+        this.$bvModal.msgBoxConfirm('Are you sure?')
+          .then(value => {
+            console.log(dog)
+            if (value === true) {
+              this.boxOne = value
+              this.deleteItem(dog.id)
+              return this.$router.push("/show-dogs")
+
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
       },
       editItem() {
         let dog = {
-          id: document.getElementById('e_id'),
-          name: document.getElementById('e_name'),
-          age: document.getElementById('e_age'),
-          weight: document.getElementById('e_weight'),
-          breed: document.getElementById('e_breed'),
+          id: document.getElementById('e_id').value,
+          name: document.getElementById('e_name').value,
+          age: document.getElementById('e_age').value,
+          weight: document.getElementById('e_weight').value,
+          breed: document.getElementById('e_breed').value,
+          user_id: 2
+        }
+        editDog(dog).then(res => {
+          this.showModal=false
+          this.$router.go()
+          return res
+        })
+      },
+      handleSubmit() {
+        let dog = {
+          id: document.getElementById('e_id').value,
+          name: document.getElementById('e_name').value,
+          age: document.getElementById('e_age').value,
+          weight: document.getElementById('e_weight').value,
+          breed: document.getElementById('e_breed').value,
           user_id: 2
         }
 
-        editDog(dog).then(res => {
-          this.showModal=false
-          return res
-        })
-      }
+      addDog(dog).then(res => {
+        if (res.data.message === "Dog created") {
+          console.log(res.data.message)
+          this.alertMessage = "Dog created";
+          this.alertType = "success";
+          setTimeout(() => {
+            this.alertMessage = ""
+            this.$router.push("/show-dogs")
+          }, 1000)
+        } 
+        // verificar quando da erro
+        this.alertMessage = "Dog not created";
+        this.alertType = "danger";
+        setTimeout(() => {
+          this.alertMessage = ""
+        }, 1000)
+        
+      });
+
+    }
     }
   }
 </script>

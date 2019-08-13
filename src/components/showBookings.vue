@@ -67,13 +67,12 @@
 </template>
 
 <script>
-import NavBar from "../components/NavBar";
 import sidebar from "../components/Sidebar";
 import { showBookingsUser, findDogByID, getServices, addServiceBooking } from '../services/services';
 
 export default {
     name: "show-bookings",
-    components: { NavBar, sidebar },
+    components: { sidebar },
     data() {
       return {
         selected: [],

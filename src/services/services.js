@@ -44,9 +44,8 @@ export function deleteDog(dogId) {
 }
 
 export function editDog(dog) {
-  const request = axios
-    .put(`${API_URL}/dog/${dog.id}`, dog)
-  return request
+  return axios
+    .put(`${API_URL}/dog/${dog.id}`, dog).then(res => console.log(res)).catch(error => console.log(error))
 }
 
 export function showDogsUser(userId) {
