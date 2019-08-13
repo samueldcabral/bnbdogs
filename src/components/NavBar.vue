@@ -28,10 +28,12 @@
             </b-form-group>
 
             <b-form-checkbox class="mb-3">Remember me</b-form-checkbox>
-            <b-button variant="primary" size="sm" @click="login" >Sign In</b-button> <!-- @click="onClick; login;"  -->
-          
+            <router-link to="/dashBoard">
+              <b-button variant="primary" size="sm" @click="login" >Sign In</b-button> <!-- @click="onClick; login;"  -->
+            </router-link>
           <b-dropdown-divider></b-dropdown-divider>
           <!-- <b-dropdown-item-button>New around here? Sign up</b-dropdown-item-button> -->
+           
           <b-dropdown-item-button>Forgot Password?</b-dropdown-item-button>
           </b-dropdown-form>
         </b-dropdown>
