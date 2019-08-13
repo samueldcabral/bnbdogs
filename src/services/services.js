@@ -11,9 +11,14 @@ export function getUsers() {
 }
 
 export function addUser(user) {
-  console.log(user)
   const request = axios
     .post(API_URL+ '/user', user)
+  return request;
+}
+
+export function loginUser(user) {
+  const request = axios
+    .post(API_URL+ '/login', user)
   return request;
 }
 

@@ -12,9 +12,9 @@
         </router-link>
 
         <b-dropdown id="dropdown-form" text="Login" ref="dropdown" class="m-2">
-          <b-dropdown-form >
-            <b-form-group label="Email" style="width=250px;" label-for="dropdown-form-email" @submit.stop.prevent>
-              <b-form-input id="dropdown-form-email" size="sm" placeholder="email@example.com"></b-form-input>
+          <b-dropdown-form >  <!--@submit.prevent="login" -->
+            <b-form-group label="Email" style="width=250px;" label-for="dropdown-form-email">
+              <b-form-input v-model="user.email" id="dropdown-form-email" size="sm" placeholder="email@example.com"></b-form-input>
             </b-form-group>
 
             <b-form-group label="Password" label-for="dropdown-form-password">
@@ -23,15 +23,17 @@
                 type="password"
                 size="sm"
                 placeholder="Password"
+                v-model="user.password"
               ></b-form-input>
             </b-form-group>
 
             <b-form-checkbox class="mb-3">Remember me</b-form-checkbox>
-            <b-button variant="primary" size="sm" @click="onClick">Sign In</b-button>
-          </b-dropdown-form>
+            <b-button variant="primary" size="sm" @click="login" >Sign In</b-button> <!-- @click="onClick; login;"  -->
+          
           <b-dropdown-divider></b-dropdown-divider>
           <!-- <b-dropdown-item-button>New around here? Sign up</b-dropdown-item-button> -->
           <b-dropdown-item-button>Forgot Password?</b-dropdown-item-button>
+          </b-dropdown-form>
         </b-dropdown>
 
         <router-link to="/registry" class="p-2">
@@ -44,11 +46,31 @@
 
 
 <script>
+import { loginUser } from "../services/services";
+
 export default {
+  data(){
+    return {
+      user: {
+        email: "",
+        password: ""
+      }
+    }
+  },
+  mounted() {
+    this.user
+  },
   methods: {
-    onClick() {
-      // Close the menu and (by passing true) return focus to the toggle button
-      this.$refs.dropdown.hide(true);
+    // onClick() {
+    //   // Close the menu and (by passing true) return focus to the toggle button
+    //   this.$refs.dropdown.hide(true);
+    // },
+    login(){
+      console.log(this.user)
+      loginUser(this.user).then(res=>{
+        console.log(res.data.user.id)
+        this.$cookie.set('user_id', res.data.user.id, 1)
+      })
     }
   }
 };
