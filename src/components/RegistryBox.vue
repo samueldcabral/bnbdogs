@@ -34,7 +34,7 @@
         label="Your address:"
         label-for="input-3"
       >
-        <b-form-input id="input-3" v-model="user.address" required placeholder="Enter address"></b-form-input>
+        <b-form-input id="input-3" v-model="user.address" placeholder="Enter address"></b-form-input>
       </b-form-group>
 
       <b-form-group
@@ -43,7 +43,7 @@
         label="Your telephone:"
         label-for="input-4"
       >
-        <b-form-input id="input-4" v-model="user.phone" required placeholder="Enter telephone"></b-form-input>
+        <b-form-input id="input-4" v-model="user.phone" placeholder="Enter telephone"></b-form-input>
       </b-form-group>
 
       <b-form-group
@@ -52,7 +52,7 @@
         label="Your password:"
         label-for="input-5"
       >
-        <b-form-input id="input-5" v-model="user.password" required placeholder="Enter password"></b-form-input>
+        <b-form-input id="input-5" v-model="user.password" type="password" required placeholder="Enter password"></b-form-input>
       </b-form-group>
 
       <b-form-group
@@ -65,6 +65,7 @@
           id="input-5"
           v-model="user.password_confirmation"
           required
+          type="password"
           placeholder="Retry your password"
         ></b-form-input>
 
