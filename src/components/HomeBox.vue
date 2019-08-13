@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white p-5">
+  <div class="bg-white p-5 box">
     <h3>Hey, Who's a good boy?</h3>
     <p>Book your room now</p>
     <br />
@@ -84,8 +84,8 @@ export default {
 };
 </script>
 <style scoped>
-div {
-  width: 50%;
+.box {
+  width: 35rem;
   border-radius: 6px;
 }
 .button {
