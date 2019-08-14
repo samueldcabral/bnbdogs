@@ -11,7 +11,7 @@
           <b-button variant="outline-dark">About</b-button>
         </router-link>
 
-          <b-dropdown id="dropdown-form" text="Login" ref="dropdown" class="m-2" v-if="verificaLogado">
+          <b-dropdown id="dropdown-form" text="Login" ref="dropdown" class="m-2" v-if="this.$cookie.get('user_id') == null">
             <b-dropdown-form>
               <!--@submit.prevent="login" -->
               <b-form-group label="Email" style="width=250px;" label-for="dropdown-form-email">
@@ -45,11 +45,11 @@
             </b-dropdown-form>
           </b-dropdown>
 
-          <router-link to="/" class="p-2" v-if="verificaLogado == false">
+          <router-link to="/" class="p-2" v-if="this.$cookie.get('user_id') != null">
             <b-button variant="outline-dark" @click="logout">Logout</b-button>
           </router-link>
 
-          <router-link to="/registry" class="p-2"  v-if="verificaLogado">
+          <router-link to="/registry" class="p-2"  v-if="this.$cookie.get('user_id') == null">
             <b-button variant="outline-dark">register</b-button>
           </router-link>
 
@@ -65,7 +65,6 @@ import { loginUser } from "../services/services";
 export default {
   data() {
     return {
-      show: true,
       user: {
         email: "",
         password: ""
@@ -88,11 +87,11 @@ export default {
     logout(){
       this.$cookie.delete('user_id');
     },
-    verificaLogado(){
-        if (this.$cookie.get('user_id') == null){
-          this.show = false
-        }
-    }
+    // verificaLogado(){
+    //     if (this.$cookie.get('user_id') == null){
+    //       this.show = false
+    //     }
+    // }
   }
 };
 </script>
