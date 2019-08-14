@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navBar />
     <div class="container">
       <RegBox />
     </div>

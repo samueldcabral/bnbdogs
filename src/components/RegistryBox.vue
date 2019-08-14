@@ -52,7 +52,13 @@
         label="Your password:"
         label-for="input-5"
       >
-        <b-form-input id="input-5" v-model="user.password" type="password" required placeholder="Enter password"></b-form-input>
+        <b-form-input
+          id="input-5"
+          v-model="user.password"
+          type="password"
+          required
+          placeholder="Enter password"
+        ></b-form-input>
       </b-form-group>
 
       <b-form-group
@@ -89,11 +95,9 @@ export default {
         password: "",
         password_confirmation: ""
       }
-    }
+    };
   },
-  mounted() {
-
-  },
+  mounted() {},
   methods: {
     salvar() {
       addUser(this.user).then(res => {
@@ -103,7 +107,7 @@ export default {
           this.alertType = "success";
           setTimeout(() => {
             this.alertMessage = "";
-            this.$router.push("/registry");
+            this.$router.push("/");
           }, 1000);
         }
         // verificar quando da erro

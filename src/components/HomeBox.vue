@@ -84,7 +84,7 @@ export default {
       let duration = new Date(this.time1["1"] - this.time1["0"]).getDate();
 
       if (!this.$cookie.get("user_id")) { //If not registered , go do that
-        this.$router.push("/register");
+        this.$router.push("/registry");
       } else {
         this.isActive = true;
         this.user = await getUser(this.$cookie.get("user_id")); //get the user from cookies
