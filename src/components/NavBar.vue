@@ -82,6 +82,7 @@ export default {
     login() {
       loginUser(this.user).then(res => {
         this.$cookie.set("user_id", res.data.user.id, 1);
+        console.log(this.$cookie.get('user_id'))
       })
     },
     logout(){
