@@ -75,14 +75,14 @@
       <b-button variant="secondary" @click="cancel()">
         Cancel
       </b-button>
-      <b-button variant="primary" @click="editItem()">
+      <b-button variant="primary" @click="editItem(); close()">
         OK
       </b-button>
     </template>
   </b-modal>
 
 
-    <b-modal id="modal-create">
+  <b-modal id="modal-create">
     <template slot="modal-header" slot-scope="{ close }">
       <b-button size="sm" variant="outline-danger" @click="close()">
         x
@@ -158,6 +158,7 @@ export default {
     data() {
       return {
         boxOne: '',
+        userId: '',
         dog: {
           id: '',
           name: '',
@@ -169,7 +170,8 @@ export default {
       }
     }, 
     mounted () {
-      this.showDogs(2).then(res => {
+
+      this.showDogs(this.userId).then(res => {
         this.dogs = res
       });
     }, 
@@ -198,8 +200,9 @@ export default {
             console.log(dog)
             if (value === true) {
               this.boxOne = value
-              this.deleteItem(dog.id)
-              return this.$router.push("/show-dogs")
+              this.deleteItem(dog.id).then(res => {
+                return res;
+              })
 
             }
           })
@@ -214,7 +217,7 @@ export default {
           age: document.getElementById('e_age').value,
           weight: document.getElementById('e_weight').value,
           breed: document.getElementById('e_breed').value,
-          user_id: 2
+          user_id: this.$cookie.get('user_id')
         }
         editDog(dog).then(res => {
           this.showModal=false
@@ -229,29 +232,29 @@ export default {
           age: document.getElementById('e_age').value,
           weight: document.getElementById('e_weight').value,
           breed: document.getElementById('e_breed').value,
-          user_id: 2
+          user_id: this.$cookie.get('user_id')
         }
 
-      addDog(dog).then(res => {
-        if (res.data.message === "Dog created") {
-          console.log(res.data.message)
-          this.alertMessage = "Dog created";
-          this.alertType = "success";
+        addDog(dog).then(res => {
+          if (res.data.message === "Dog created") {
+            console.log(res.data.message)
+            this.alertMessage = "Dog created";
+            this.alertType = "success";
+            setTimeout(() => {
+              this.alertMessage = ""
+              this.$router.push("/show-dogs")
+            }, 1000)
+          } 
+          // verificar quando da erro
+          this.alertMessage = "Dog not created";
+          this.alertType = "danger";
           setTimeout(() => {
             this.alertMessage = ""
-            this.$router.push("/show-dogs")
           }, 1000)
-        } 
-        // verificar quando da erro
-        this.alertMessage = "Dog not created";
-        this.alertType = "danger";
-        setTimeout(() => {
-          this.alertMessage = ""
-        }, 1000)
-        
-      });
+          
+        });
 
-    }
+      }
     }
   }
 </script>

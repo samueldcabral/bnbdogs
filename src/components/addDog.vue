@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navBar class="pl-5 ml-5"/>
     <b-container>
       <sidebar />
       <h1 class="mt-5">Add a dog</h1>
@@ -68,14 +67,13 @@
   </div>
 </template>
 <script>
-import NavBar from "../components/NavBar";
 import sidebar from "../components/Sidebar";
 import { addDog } from '../services/services';
 
 
 export default {
   name: "add-dog",
-  components: { NavBar, sidebar },
+  components: { sidebar },
   data () {
     return {
       alertMessage: '',

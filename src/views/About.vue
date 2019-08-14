@@ -1,15 +1,17 @@
 <template>
   <div>
-    <navBar />
-    <p>This is an about page</p>
+    <b-container class="bg-white m-auto text-center" style="min-height: 500px;">
+      <sidebar />
+      <h3 class="m-5">This is an about page</h3>
+    </b-container>
   </div>
 </template>
 
 <script>
-import NavBar from "../components/NavBar";
+import sidebar from "../components/Sidebar";
 
 export default {
   name: "about",
-  components: { NavBar }
+  components: { sidebar }
 };
 </script>

@@ -67,9 +67,22 @@ export function findDogByID(dogId) {
   return request;
 }
 
+export function findDogNameByID(dogId) {
+  const request = axios
+    .get(`${API_URL}/dog/${dogId}/name`)
+    .then(res => res.data);
+  return request;
+}
+
 export function addServiceBooking(bookingId, service) {
   const request = axios
     .post(`${API_URL}/booking/${bookingId}`, service)
+  return request;
+}
+
+export function showBookingServicesByBooking(bookingId) {
+  const request = axios
+    .get(`${API_URL}/bookingsservices/${bookingId}`)
   return request;
 }
 

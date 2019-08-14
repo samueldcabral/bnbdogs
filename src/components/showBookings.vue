@@ -15,11 +15,13 @@
                 <b-card-text><strong>Check-in_date:</strong> {{ booking['check-in_date'] ? booking['check-in_date'] : "Not confirmed" }}  ---  <strong>Check-out_date:</strong> {{ booking['check-out_date'] ? booking['check-out_date']  : "Not confirmed" }}</b-card-text>
                 <b-card-text><strong>Status:</strong> {{ booking.status }}  ---  <strong>Price:</strong> $ {{ booking.day_price }}</b-card-text>
                 <b-card-text><strong>Dog:</strong> {{booking.dog_id }}<!-- {{ dogName(booking.dog_id) }} --></b-card-text>
-                <b-card-text><strong>Services: </strong>
-                 <!--  <ul v-for="service in services" v-bind:key="service.id">
-                    <li>Description: {{service.description}}</li>
-                    <li>Price: $ {{service.price}}</li>
-                  </ul> -->
+                <b-card-text>
+                    <!-- <b-button @click="$bvModal.show('modal-scoped'); showBookingServicesByB(booking.id)">Show Services</b-button> -->
+                  <!-- <strong>Services: </strong>
+                  <ul v-for="servb in bookingsServices" v-bind:key="servb.id">
+                    <li>Description: {{servb.description}}</li>
+                    <li>Price: $ {{servb.price}}</li>
+                  </ul>  -->
                 </b-card-text>
                 <b-card-text v-if="booking.status === 'pending'"><strong>Add Services: </strong> 
                   <div>
@@ -37,6 +39,29 @@
             </b-collapse>
           </b-card>
         </div>
+
+<!-- MODAL -->
+
+<b-modal id="modal-scoped">
+    <template slot="modal-header" slot-scope="{ close }">
+      <!-- Emulate built in modal header close button action -->
+      <h5>Services</h5>
+      <b-button size="sm" variant="outline-danger" @click="close()">
+        X
+      </b-button>
+    </template>
+
+    <template slot="default">
+      <p v-for="bs in bookingsServices" v-bind:key="bs.id">{{bs.id}}</p>
+    </template>
+
+    <template slot="modal-footer" slot-scope="{ cancel}">
+      <b-button size="sm" variant="secondary" @click="cancel()">
+        Ok
+      </b-button>
+    </template>
+  </b-modal>
+
         <!-- <div class="table table-borderless" id="table">
           <table class="table table-borderless" id="table">
               <thead>
@@ -68,17 +93,19 @@
 
 <script>
 import sidebar from "../components/Sidebar";
-import { showBookingsUser, findDogByID, getServices, addServiceBooking } from '../services/services';
+import { showBookingsUser, getServices, addServiceBooking, showBookingServicesByBooking, findDogNameByID } from '../services/services';
 
 export default {
     name: "show-bookings",
     components: { sidebar },
     data() {
       return {
+        boxTwo: '',
         selected: [],
         services: [],
         options: [],
-        bookings: []
+        bookings: [],
+        bookingsServices: []
       }
     }, 
     mounted () {
@@ -89,19 +116,23 @@ export default {
       this.showAllServices().then(res => {
         this.services = res
       });
+
     }, 
     methods: {
       showBookings(userId) {
         return showBookingsUser(userId).then(res => res.data)
       },
       findDogByIDName(dogId) {
-        return findDogByID(dogId).then(res => res)
+        return findDogNameByID(dogId).then(res => res)
       },
       dogName(dogId) {
-        return this.findDogByIDName(dogId).then(res => res)
+        return this.findDogByIDName(dogId)
       },
       showAllServices() {
         return getServices().then(res => res)
+      },
+      showBookingServicesByB(bookingId) {
+        return showBookingServicesByBooking(bookingId).then(res =>  res.data)
       },
       addService(bookingId) {
         let serv = {}
@@ -110,10 +141,18 @@ export default {
             booking_id: bookingId,
             service_id: select
           }
-          addServiceBooking(bookingId, serv)
+          addServiceBooking(bookingId, serv).then(res => console.log(res))
+          alert('Service Added!')
         })
         return serv;
-      }
+      },
+
+/*       bookService(bookId) {
+        this.showBookingServicesByB(bookId).then(res => {
+        this.bookingsServices = res
+        console.log(this.bookingsServices)
+      })
+      } */
     }
   }
 </script>

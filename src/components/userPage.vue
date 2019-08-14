@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navBar class="pl-5 ml-5"/>
     <b-container>
     <sidebar />
     <b-card bd-variant="white">
@@ -66,11 +65,10 @@
 </template>
 
 <script>
-import NavBar from "../components/NavBar";
 import sidebar from "../components/Sidebar";
   export default {
     name: 'profile',
-    components: { NavBar, sidebar },
+    components: { sidebar },
     data() {
       return {
         form: {
