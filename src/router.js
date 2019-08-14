@@ -47,6 +47,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "dashboard" */ './components/addService.vue')
     },
     {
+      path: '/registry',
+      name: 'registry',
+      component: () => import(/* webpackChunkName: "about" */ './views/Registry.vue')
+    },
+    {
       path: '/profile',
       name: 'userPage',
       component: () => import(/* webpackChunkName: "dashboard" */ './components/userPage.vue')

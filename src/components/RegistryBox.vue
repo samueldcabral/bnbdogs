@@ -82,26 +82,24 @@ export default {
   data() {
     return {
       user: {
-        email: "",
         name: "",
+        email: "",
         phone: "",
         address: "",
         password: "",
         password_confirmation: ""
       }
-    };
+    }
   },
   mounted() {
 
   },
   methods: {
     salvar() {
-      console.log(this.user)
       addUser(this.user).then(res => {
-        console.log(res)
-        if (res.data.message === "Dog created") {
+        if (res.data.message === "User created") {
           console.log(res.data.message);
-          this.alertMessage = "Dog created";
+          this.alertMessage = "User created";
           this.alertType = "success";
           setTimeout(() => {
             this.alertMessage = "";
@@ -109,7 +107,7 @@ export default {
           }, 1000);
         }
         // verificar quando da erro
-        this.alertMessage = "Dog not created";
+        this.alertMessage = "User not created";
         this.alertType = "danger";
         setTimeout(() => {
           this.alertMessage = "";

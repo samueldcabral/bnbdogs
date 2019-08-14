@@ -15,6 +15,7 @@ export default {
   components: { HomeBox }
 };
 </script>
+
 <style>
 body {
   background: url("../../static/happydog.jpg") no-repeat !important;

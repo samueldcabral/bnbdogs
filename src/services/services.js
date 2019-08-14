@@ -10,6 +10,18 @@ export function getUsers() {
   return request;
 }
 
+export function addUser(user) {
+  const request = axios
+    .post(API_URL+ '/user', user)
+  return request;
+}
+
+export function loginUser(user) {
+  const request = axios
+    .post(API_URL+ '/login', user)
+  return request;
+}
+
 export function getDogs() {
   const request = axios
     .get(API_URL + '/dog')
