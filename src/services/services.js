@@ -8,6 +8,11 @@ export function getUsers() {
   return request;
 }
 
+export function getUser(userId) {
+  const request = axios.get(`${API_URL}/user/${userId}`).then(res => res.data);
+  return request;
+}
+
 export function getDogs() {
   const request = axios.get(API_URL + "/dog").then(res => res.data);
   return request;

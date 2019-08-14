@@ -16,21 +16,22 @@
       <date-picker v-model="time1" range appendToBody :lang="lang" format="YYYY-MM-DD"></date-picker>
       <br />
       <br />
-      <b-button variant="primary" @click="postBooking" class="button">Book now!</b-button>
+      <b-button variant="primary" :disabled="time1 == null" @click="postBooking" class="button" v-if="!isActive">Book now!</b-button>
       <!-- <b-button variant="primary" @click="setCookie" class="button">cccc now!</b-button> -->
     </div>
-    <div>
-      <b-form-group label="Select the type of your room.">
+    <div :class="[{ displayed: isActive }, { notDisplayed: !isActive }]"> 
+      <h3>Niiice, you're almost there!</h3>
+
+      <b-form-group label="Choose which good boy is staying with us!">
         <b-form-radio
-          v-model="dayprice"
-          name="some-radios"
-          value="25"
-          aria-selected="d"
-        >Standard - $25</b-form-radio>
-        <b-form-radio v-model="dayprice" name="some-radios" value="50">Premium - $50</b-form-radio>
+          v-for="dog in dogs"
+          v-bind:key="dog.id"
+          v-model="dogId"
+          :value="dog.id"
+        >{{dog.name}}</b-form-radio>
+        
       </b-form-group>
 
-      <date-picker v-model="time1" range appendToBody :lang="lang" format="YYYY-MM-DD"></date-picker>
       <br />
       <br />
       <b-button variant="primary" @click="postBooking" class="button">Book now!</b-button>
@@ -39,17 +40,19 @@
 </template>
 
 <script>
-import { addBooking } from "../services/services";
+import { addBooking, getUser, showDogsUser } from "../services/services";
 import DatePicker from "vue2-datepicker";
 export default {
   components: { DatePicker },
   data: function() {
     return {
-      user: "a",
-      time1: "",
+      user: "",
+      dogs: [],
+      dogId: "",
+      time1: null,
       dayprice: "25",
       bookingDate: "",
-      dogId: 1,
+      isActive: false,
       lang: {
         days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
         months: [
@@ -70,20 +73,24 @@ export default {
           date: "Select Date",
           dateRange: "Select Date Range"
         }
-      },
-      isActive: false
+      }
     };
   },
   methods: {
-    postBooking() {
+    async postBooking() {
       this.bookingDate = new Date(Date.now());
       //To get the duration you subtract the later date from the earlier and it will get the duration
       let duration = new Date(this.time1["1"] - this.time1["0"]).getDate();
 
-      if (!this.$cookie.get("user") && this.user === "") {
-        this.$router.push("/signup");
+      if (!this.$cookie.get("user_id")) {
+        this.$router.push("/register");
       } else {
         this.isActive = true;
+        this.user = await getUser(this.$cookie.get("user_id")); //get the user from cookies
+        let response = await showDogsUser(this.user.id);
+        this.dogs = response.data;
+
+        //creating payload
         let booking = {
           booking_date: this.getDate(this.bookingDate),
           "check-in_date": this.getDate(this.time1["0"]),
@@ -93,6 +100,27 @@ export default {
           dog_id: this.dogId
         };
         console.log(booking);
+
+        //If you haven't select the dog yet, you can't post to the backend
+        if(this.dogId) {
+          let result = await addBooking(booking);
+          if (result.data.message === "Booking created") {
+              console.log(result.data.message);
+              alert("Booking created");
+  
+              setTimeout(() => {
+                this.alertMessage = "";
+                this.$router.push("/dashboard");
+              }, 1000);
+            } else {
+              // verificar quando da erro
+              alert("Booking not created");
+              setTimeout(() => {
+                this.alertMessage = "";
+              }, 1000);
+            }
+
+        }
 
         // addBooking(booking).then(res => {
         //   if (res.data.message === "Booking created") {
@@ -110,6 +138,9 @@ export default {
         //     }, 1000);
         //   }
         // });
+
+
+
       }
     },
     getDate(dateSent) {
@@ -125,7 +156,7 @@ export default {
 </script>
 <style scoped>
 .box {
-  width: 75rem;
+  width: 35rem;
   transition-property: width;
   transition-duration: 2s;
   border-radius: 6px;
@@ -139,4 +170,13 @@ export default {
 .active {
   width: 70rem;
 }
+
+.displayed {
+  display: block;
+}
+
+.notDisplayed {
+  display: none;
+}
+
 </style>
