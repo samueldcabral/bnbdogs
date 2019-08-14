@@ -65,7 +65,6 @@ import { loginUser } from "../services/services";
 export default {
   data() {
     return {
-      show: true,
       user: {
         email: "",
         password: ""
@@ -85,9 +84,9 @@ export default {
         this.$cookie.set("user_id", res.data.user.id, 1);
       })
     },
-    // logout(){
-    //   this.$cookie.delete('user_id');
-    // },
+    logout(){
+      this.$cookie.delete('user_id');
+    },
     // verificaLogado(){
     //     if (this.$cookie.get('user_id') == null){
     //       this.show = false

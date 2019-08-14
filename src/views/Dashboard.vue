@@ -3,7 +3,7 @@
     <navBar class="pl-5 ml-5"/>
     <b-container>
       <sidebar />
-      <h1 class="mt-5">Welcome, {{ name }}</h1>
+      <h1 class="mt-5">Welcome</h1>
       
       <div class="mt-5">
         <b-card-group deck>
