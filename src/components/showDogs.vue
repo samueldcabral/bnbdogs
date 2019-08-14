@@ -13,7 +13,7 @@
           </div>
         </div>
         
-
+        <b-alert v-if="alertMessage" :variant="alertType" show>{{alertMessage}}</b-alert>
         <div class="table" id="table">
           <table class="text-center table table-striped" id="table">
               <thead class="thead-dark">
@@ -158,6 +158,8 @@ export default {
     data() {
       return {
         boxOne: '',
+        alertMessage: '',
+        alertType: '',
         dog: {
           id: '',
           name: '',
@@ -179,8 +181,14 @@ export default {
         return this.dogs
       },
       deleteItem(dogId) {
-        deleteDog(dogId)
-
+        deleteDog(dogId).then(res => {
+          this.alertMessage = "Dog deleted";
+          this.alertType = "success";
+          setTimeout(() => {
+              this.alertMessage = ""
+            }, 1000)
+          return res;
+        })
       },
       setVal(val_id, val_name, val_age, val_weight, val_breed) {
         this.dog = {
@@ -197,12 +205,7 @@ export default {
           .then(value => {
             if (value === true) {
               this.boxOne = value
-              this.deleteItem(dog.id).then(res => {
-                return res;
-              })
-              this.alertMessage = "Dog deleted";
-              this.alertType = "danger";
-
+              this.deleteItem(dog.id).then(res => res)
             }
           })
           .catch(err => {
@@ -238,17 +241,18 @@ export default {
             console.log(res.data.message)
             this.alertMessage = "Dog created";
             this.alertType = "success";
+            this.$router.go()
             setTimeout(() => {
               this.alertMessage = ""
-              this.$router.push("/show-dogs")
             }, 1000)
-          } 
-          // verificar quando da erro
-          this.alertMessage = "Dog not created";
-          this.alertType = "danger";
-          setTimeout(() => {
-            this.alertMessage = ""
-          }, 1000)
+          } else {
+            // verificar quando da erro
+            this.alertMessage = "Dog not created";
+            this.alertType = "danger";
+            setTimeout(() => {
+              this.alertMessage = ""
+            }, 1000)
+          }
           
         });
 
