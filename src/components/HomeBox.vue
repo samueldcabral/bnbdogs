@@ -13,11 +13,11 @@
         <b-form-radio v-model="dayprice" name="some-radios" value="50">Premium - $50</b-form-radio>
       </b-form-group>
 
+      <p>Save the date</p>
       <date-picker v-model="time1" range appendToBody :lang="lang" format="YYYY-MM-DD"></date-picker>
       <br />
       <br />
       <b-button variant="primary" :disabled="time1 == null" @click="postBooking" class="button" v-if="!isActive">Book now!</b-button>
-      <!-- <b-button variant="primary" @click="setCookie" class="button">cccc now!</b-button> -->
     </div>
     <div :class="[{ displayed: isActive }, { notDisplayed: !isActive }]"> 
       <h3>Niiice, you're almost there!</h3>
@@ -79,10 +79,11 @@ export default {
   methods: {
     async postBooking() {
       this.bookingDate = new Date(Date.now());
+
       //To get the duration you subtract the later date from the earlier and it will get the duration
       let duration = new Date(this.time1["1"] - this.time1["0"]).getDate();
 
-      if (!this.$cookie.get("user_id")) {
+      if (!this.$cookie.get("user_id")) { //If not registered , go do that
         this.$router.push("/register");
       } else {
         this.isActive = true;
@@ -99,15 +100,11 @@ export default {
           day_price: parseInt(this.dayprice),
           dog_id: this.dogId
         };
-        console.log(booking);
 
         //If you haven't select the dog yet, you can't post to the backend
         if(this.dogId) {
           let result = await addBooking(booking);
           if (result.data.message === "Booking created") {
-              console.log(result.data.message);
-              alert("Booking created");
-  
               setTimeout(() => {
                 this.alertMessage = "";
                 this.$router.push("/dashboard");
@@ -119,37 +116,12 @@ export default {
                 this.alertMessage = "";
               }, 1000);
             }
-
         }
-
-        // addBooking(booking).then(res => {
-        //   if (res.data.message === "Booking created") {
-        //     console.log(res.data.message);
-        //     alert("Booking created");
-
-        //     setTimeout(() => {
-        //       this.alertMessage = "";
-        //     }, 1000);
-        //   } else {
-        //     // verificar quando da erro
-        //     alert("Booking not created");
-        //     setTimeout(() => {
-        //       this.alertMessage = "";
-        //     }, 1000);
-        //   }
-        // });
-
-
-
       }
     },
     getDate(dateSent) {
       return `${dateSent.getFullYear()}-${dateSent.getMonth() +
         1}-${dateSent.getDate()}`;
-    },
-    setCookie() {
-      // this.$cookie.set("user", "samuel", 1);
-      this.$cookie.delete("user");
     }
   }
 };
