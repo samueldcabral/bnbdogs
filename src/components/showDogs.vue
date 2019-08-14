@@ -158,7 +158,6 @@ export default {
     data() {
       return {
         boxOne: '',
-        userId: '',
         dog: {
           id: '',
           name: '',
@@ -170,8 +169,7 @@ export default {
       }
     }, 
     mounted () {
-
-      this.showDogs(this.userId).then(res => {
+      this.showDogs(this.$cookie.get('user_id')).then(res => {
         this.dogs = res
       });
     }, 
@@ -197,12 +195,13 @@ export default {
         this.boxOne = ''
         this.$bvModal.msgBoxConfirm('Are you sure?')
           .then(value => {
-            console.log(dog)
             if (value === true) {
               this.boxOne = value
               this.deleteItem(dog.id).then(res => {
                 return res;
               })
+              this.alertMessage = "Dog deleted";
+              this.alertType = "danger";
 
             }
           })
@@ -234,7 +233,6 @@ export default {
           breed: document.getElementById('e_breed').value,
           user_id: this.$cookie.get('user_id')
         }
-
         addDog(dog).then(res => {
           if (res.data.message === "Dog created") {
             console.log(res.data.message)

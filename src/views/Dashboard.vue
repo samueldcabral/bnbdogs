@@ -154,7 +154,7 @@ export default {
           age: document.getElementById('e_age').value,
           weight: document.getElementById('e_weight').value,
           breed: document.getElementById('e_breed').value,
-          user_id: 2
+          user_id: this.$cookie.get('user_id')
         }
 
         addDog(dog).then(res => {

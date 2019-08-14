@@ -109,7 +109,7 @@ export default {
       }
     }, 
     mounted () {
-      this.showBookings(2).then(res => {
+      this.showBookings(this.$cookie.get('user_id')).then(res => {
         this.bookings = res
       });
       

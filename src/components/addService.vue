@@ -97,7 +97,7 @@ export default {
         age: this.dog.age,
         weight: this.dog.weight,
         breed: this.dog.breed,
-        user_id: 2
+        user_id: this.$cookie.get('user_id')
       };
 
       addDog(result).then(res => {
