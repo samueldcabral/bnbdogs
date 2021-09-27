@@ -8,6 +8,9 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 Vue.use(BootstrapVue);
 Vue.config.productionTip = false;
 
+var VueCookie = require('vue-cookie');
+Vue.use(VueCookie);
+
 new Vue({
   router,
   render: h => h(App)

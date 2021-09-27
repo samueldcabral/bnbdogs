@@ -2,19 +2,19 @@
   <div>
     <navBar />
     <div class="container">
-      <home-box />
+      <RegBox />
     </div>
   </div>
 </template>
 
+
 <script>
-// @ is an alias to /src
 import NavBar from "../components/NavBar";
-import HomeBox from "../components/HomeBox";
+import RegBox from "../components/RegistryBox";
 
 export default {
-  name: "home",
-  components: { NavBar, HomeBox }
+  name: "registry",
+  components: { NavBar, RegBox }
 };
 </script>
 
